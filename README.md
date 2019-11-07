@@ -19,8 +19,8 @@ When using from command line:
 
 ## Time Complexity Analysis
 JSON-Merger on a very basic level:
-+ Iterates through all the files in the folder [O(n)].
-+ Sorts the files in increasing order of counter value [O(nlog(n)].
-+ Iterates through all the keys of all the files. [O(number_of_files * number_of_keys)].
++ Iterates through all the files in the folder [O(n)], where n is number of files.
++ Sorts the files in increasing order of counter value [O(nlog(n)], where n is number of files.
++ Iterates through all the keys of all the files [O(number_of_files * number_of_keys)].
 
-In worst case the time complexity will be O(n^2).
+In worst case the time complexity will be O(n x k), where n is number of files and k is maximum number of keys in any file. 
