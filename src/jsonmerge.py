@@ -47,7 +47,7 @@ class JsonMerger:
         self.f_path = f_path;
         self.i_base_name = i_base_name;
         self.o_base_name = o_base_name;
-        self.max_f_sz = max_f_sz;
+        self.max_f_sz = int(max_f_sz);
 
         files_to_open = [];
         matching_string = r"^%s(\d)+\.json$"%self.i_base_name;

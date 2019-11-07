@@ -14,9 +14,11 @@ class TestMerge(unittest.TestCase):
         
         f = open("../output/MERGE.json");
         desired_json = json.load(f);
+        f.close();
 
-        f = open("../json-files/MERGE1.json");
+        f = open("../json-files/MERGE%s.json"%(str(int(json_merger.get_output_counter())-1)));
         output_json = json.load(f);
+        f.close();
 
         self.assertEqual(output_json, desired_json);
     
