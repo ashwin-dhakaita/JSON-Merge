@@ -66,21 +66,32 @@ class JsonMerger:
 
             #iterate thorugh all the files.
             for file in files_to_open:
-                                
-                f = None;
-                prev_json_to_dump = copy.deepcopy(json_to_dump)
-                try:
+
+                flag = False;                                
+                f = None;                
+                try:                    
                     f = open(self.f_path+file, 'r');
                     loaded_json = json.load(f);
+
                     for key, _ in loaded_json.items():
+                        
+                        prev_json_to_dump = copy.deepcopy(json_to_dump)
 
                         if(json_to_dump[key] is None): 
                             json_to_dump[key] = []
 
                         if(type(loaded_json[key])==type([])):                            
                             json_to_dump[key] = json_to_dump[key] + loaded_json[key];
+
                         else:
                             json_to_dump[key].append(loaded_json[key]);
+                        
+                        #if the json file exceeds the max file limit merging is stopped.                        
+                        if(len(json.dumps(json_to_dump)) > self.max_f_sz):
+                        
+                            json_to_dump = prev_json_to_dump;
+                            flag = True;
+                            break;                                
                                                                         
                 except Exception as ex:
                     print(ex)
@@ -88,11 +99,9 @@ class JsonMerger:
                 finally:
                     if(f is not None):
                         f.close();
-
-                #if the json file exceeds the max file limit the file is not merged.                                
-                if(len(json.dumps(json_to_dump)) > self.max_f_sz):
-                    json_to_dump = prev_json_to_dump;                    
-                    break;
+                    
+                    if(flag):
+                        break;
             
             #writes the merged json.
             f = open(self.f_path+self.o_base_name+self.get_output_counter()+".json", 'w+');            
