@@ -8,6 +8,11 @@ It requires a basic installation of Python3.X which can be downloaded from:
 ## USAGE
 When importing as a module:
 ```
+    import sys
+    sys.path.insert(1, "path/to/JSON-Merge/src");
+    
+    import jsonmerge
+    
     jsonmerger = JsonMerger();
     jsonmerger.merge(folder_path, input_file_base_name, output_file_base_name, max_file_size);
 ```
